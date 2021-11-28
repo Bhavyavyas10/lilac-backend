@@ -67,7 +67,7 @@ exports.releaseCart = async (req, res) => {
       const deleteCart = await Cart.findOneAndDelete({ _id: cart_id });
     }
     if (check_cart.length > 0) {
-      if (num > 0) {
+      if (num != 0) {
         const updateCart = await Cart.findOneAndUpdate(
           { _id: check_cart[0]._id },
           { count: num - 1 }
