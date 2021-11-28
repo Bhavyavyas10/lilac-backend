@@ -50,7 +50,7 @@ exports.userCart = async (req, res) => {
     if (check_cart.length > 0) {
       res.status(200).send({ data: check_cart, status: 200 });
     } else {
-      res.status(404).send({ data: "something went wrong", status: 404 });
+      res.status(200).send({ data: "no items in cart", status: 404 });
     }
   } catch (e) {
     res.status(501).send({ data: "something went wrong", status: 501 });
