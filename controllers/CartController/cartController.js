@@ -36,7 +36,6 @@ exports.addToCart = async (req, res) => {
       res.status(404).send({ data: "something went wrong", status: 404 });
     }
   } catch (e) {
-    console.log(e);
     res.status(501).send({ data: "something went wrong", status: 501 });
   }
 };
@@ -80,7 +79,6 @@ exports.releaseCart = async (req, res) => {
       res.status(404).send({ data: "something went wrong", status: 404 });
     }
   } catch (e) {
-    console.lof(e);
     res.status(501).send({ data: "something went wrong", status: 501 });
   }
 };
