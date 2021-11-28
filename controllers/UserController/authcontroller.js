@@ -46,7 +46,12 @@ exports.login = async (req, res) => {
       });
       res
         .status(200)
-        .send({ data: "login success", status: 200, token: token });
+        .send({
+          data: "login success",
+          status: 200,
+          token: token,
+          user: user._id,
+        });
     } else {
       res.status(404).send({ data: "Invalid Credentials", status: 404 });
     }
