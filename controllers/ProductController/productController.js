@@ -2,7 +2,9 @@ const Product = require("../../models/product");
 
 exports.allProducts = async (req, res) => {
   try {
-    const products = await Product.find({}).populate({
+    const products = await Product.find({
+      originalproductprice: { $gt: 0 },
+    }).populate({
       path: "productcategory",
       populate: { path: "parentCategory" },
     });
