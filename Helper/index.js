@@ -13,7 +13,7 @@ const verifyToken = (req, res, next) => {
     const decoded = jwt.verify(token, JWT);
     req.user = decoded;
   } catch (err) {
-    return res.status(404).send({ data: err, status: 404 });
+    return res.status(404).send({ data: "something went wrong", status: 404 });
   }
   return next();
 };
