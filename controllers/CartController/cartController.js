@@ -79,6 +79,6 @@ exports.releaseCart = async (req, res) => {
       res.status(404).send({ data: "something went wrong", status: 404 });
     }
   } catch (e) {
-    res.status(501).send({ data: "something went wrong", status: 501 });
+    res.status(501).send({ data: e, status: 501 });
   }
 };
