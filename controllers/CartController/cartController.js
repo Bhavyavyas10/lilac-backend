@@ -50,7 +50,7 @@ exports.userCart = async (req, res) => {
     if (check_cart.length > 0) {
       res.status(200).send({ data: check_cart, status: 200 });
     } else {
-      res.status(200).send({ data: "no items in cart", status: 404 });
+      res.status(203).send({ data: "no items in cart", status: 203 });
     }
   } catch (e) {
     res.status(501).send({ data: "something went wrong", status: 501 });
@@ -72,9 +72,11 @@ exports.releaseCart = async (req, res) => {
           { _id: check_cart[0]._id },
           { count: num - 1 }
         );
-        res.status(201).send({ data: "item added successfully", status: 201 });
+        res
+          .status(201)
+          .send({ data: "item removed successfully", status: 201 });
       } else {
-        res.status(404).send({ data: "something went ", status: 404 });
+        res.status(404).send({ data: "something went wrong", status: 404 });
       }
     } else {
       res.status(404).send({ data: "something went wrong", status: 404 });
