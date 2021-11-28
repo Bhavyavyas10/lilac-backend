@@ -58,8 +58,25 @@ exports.releaseCart = async (req, res) => {
     const { user_id, cart_id } = req.query;
     const check_cart = await Cart.find({ _id: cart_id, customeruid: user_id });
     const num = check_cart[0].count;
-    const deleteCart = await Cart.findOneAndDelete({ _id: cart_id });
-    res.status(201).send({ data: "item removed successfully", status: 201 });
+
+    if (num === 1) {
+      const deleteCart = await Cart.findOneAndDelete({ _id: cart_id });
+    }
+    if (check_cart.length > 0) {
+      if (num != 0) {
+        const updateCart = await Cart.findOneAndUpdate(
+          { _id: check_cart[0]._id },
+          { count: num - 1 }
+        );
+        res
+          .status(201)
+          .send({ data: "item removed successfully", status: 201 });
+      } else {
+        res.status(404).send({ data: "something went wrong", status: 404 });
+      }
+    } else {
+      res.status(404).send({ data: "something went wrong", status: 404 });
+    }
   } catch (e) {
     console.log(e);
     res.status(501).send({ data: e, status: 501 });
