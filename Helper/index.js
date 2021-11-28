@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { JWT } = process.env.JWT;
+const { JWT } = process.env;
 
 const verifyToken = (req, res, next) => {
   const token =
