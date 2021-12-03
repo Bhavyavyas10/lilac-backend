@@ -2,6 +2,9 @@ const User = require("../../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { JWT } = process.env;
+const admin = require("firebase-admin");
+
+const tokens = [];
 
 exports.register = async (req, res) => {
   try {
@@ -44,18 +47,40 @@ exports.login = async (req, res) => {
       const token = jwt.sign({ user_id: user._id, email }, JWT, {
         expiresIn: "2h",
       });
-      res
-        .status(200)
-        .send({
-          data: "login success",
-          status: 200,
-          token: token,
-          user: user._id,
-        });
+      res.status(200).send({
+        data: "login success",
+        status: 200,
+        token: token,
+        user: user._id,
+      });
     } else {
       res.status(404).send({ data: "Invalid Credentials", status: 404 });
     }
   } catch (e) {
+    res.status(501).send({ data: "error", status: 501 });
+  }
+};
+
+exports.registerToken = async (req, res) => {
+  console.log(req.body.token);
+  tokens.push(req.body.token);
+  res.status(200).json({ data: "Successfully registered FCM Token!" });
+};
+
+exports.sendNotification = async (req, res) => {
+  try {
+    const { title, body, imageUrl } = req.body;
+    await admin.messaging().sendMulticast({
+      tokens,
+      notification: {
+        title,
+        body,
+        imageUrl,
+      },
+    });
+    res.status(200).json({ data: "Successfully sent notifications!" });
+  } catch (e) {
+    console.log(e);
     res.status(501).send({ data: "error", status: 501 });
   }
 };

@@ -5,9 +5,16 @@ const { PORT, MONGO_URI } = process.env;
 const cors = require("cors");
 const chalk = require("chalk");
 const mongoose = require("mongoose");
+const admin = require("firebase-admin");
+const serviceAccount = require("./firebase.json");
+
 const UserRoutes = require("./routes/Users/index");
 const ProductRoute = require("./routes/Products/index");
 const CartRoute = require("./routes/Cart/index");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
 
 app.use(cors());
 app.use(express.json());
