@@ -11,7 +11,6 @@ const serviceAccount = require("./firebase.json");
 const UserRoutes = require("./routes/Users/index");
 const ProductRoute = require("./routes/Products/index");
 const CartRoute = require("./routes/Cart/index");
-const StripeRoute = require("./routes/Stripe/index");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -27,7 +26,6 @@ app.get("/", async (req, res) => {
 app.use("/api/v1", UserRoutes);
 app.use("/api/v1", ProductRoute);
 app.use("/api/v1", CartRoute);
-app.use("/api/v1/", StripeRoute);
 
 const handshake = async () => {
   try {
