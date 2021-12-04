@@ -11,6 +11,7 @@ const serviceAccount = require("./firebase.json");
 const UserRoutes = require("./routes/Users/index");
 const ProductRoute = require("./routes/Products/index");
 const CartRoute = require("./routes/Cart/index");
+const StripeRoute = require("./routes/Stripe/index");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
