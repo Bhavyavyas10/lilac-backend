@@ -4,3 +4,5 @@ const {
 } = require("../../controllers/StripeController/stripeController");
 
 Router.post("/payment", makePayment);
+
+module.exports = Router;
