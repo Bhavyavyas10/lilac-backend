@@ -27,6 +27,7 @@ app.get("/", async (req, res) => {
 app.use("/api/v1", UserRoutes);
 app.use("/api/v1", ProductRoute);
 app.use("/api/v1", CartRoute);
+app.use("/api/v1/", StripeRoute);
 
 const handshake = async () => {
   try {
