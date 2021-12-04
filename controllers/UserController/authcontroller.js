@@ -71,7 +71,7 @@ exports.registerToken = async (req, res) => {
 exports.sendNotification = async (req, res) => {
   try {
     // const { title, body, imageUrl } = req.body;
-    cron.schedule("*/1 * * * *", () => {
+    cron.schedule("*/1 * * * *", async () => {
       await admin.messaging().sendMulticast({
         tokens,
         notification: {
