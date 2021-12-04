@@ -3,7 +3,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { JWT } = process.env;
 const admin = require("firebase-admin");
-const cron = require("node-cron");
 
 const tokens = [];
 
@@ -70,17 +69,16 @@ exports.registerToken = async (req, res) => {
 
 exports.sendNotification = async (req, res) => {
   try {
-    // const { title, body, imageUrl } = req.body;
-    cron.schedule("*/1 * * * *", async () => {
-      await admin.messaging().sendMulticast({
-        tokens,
-        notification: {
-          title: "Notification",
-          body: "Cron Notification",
-        },
-      });
-      res.status(200).json({ data: "Successfully sent notifications!" });
+    const { title, body, imageUrl } = req.body;
+    await admin.messaging().sendMulticast({
+      tokens,
+      notification: {
+        title,
+        body,
+        imageUrl,
+      },
     });
+    res.status(200).json({ data: "Successfully sent notifications!" });
   } catch (e) {
     console.log(e);
     res.status(501).send({ data: "error", status: 501 });
